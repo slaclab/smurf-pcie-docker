@@ -12,5 +12,5 @@ ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/surf/python:${PYTHO
 
 # Add utilities
 RUN mkdir -p /usr/local/src/smurf-pcie_utilities
-ADD scripts/* /usr/local/src/smurf-pcie_utilities
+ADD scripts/* /usr/local/src/smurf-pcie_utilities/
 ENV PATH /usr/local/src/smurf-pcie_utilities:${PATH}
