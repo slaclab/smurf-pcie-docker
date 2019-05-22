@@ -9,3 +9,8 @@ RUN git submodule sync && git submodule update --init --recursive
 ENV PYTHONPATH /usr/local/src/smurf-pcie/software/python:${PYTHONPATH}
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/axi-pcie-core/python:${PYTHONPATH}
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/surf/python:${PYTHONPATH}
+
+# Add utilities
+RUN mkdir -p /usr/local/src/smurf-pcie_utilities
+ADD scripts/* /usr/local/src/smurf-pcie_utilities
+ENV PATH /usr/local/src/smurf-pcie_utilities:${PATH}
