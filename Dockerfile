@@ -2,7 +2,7 @@ FROM tidair/smurf-rogue:R1.0.1
 
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
-RUN git clone https://github.com/slaclab/smurf-pcie.git
+RUN git clone https://github.com/slaclab/smurf-pcie.git -b 7a60069009ef12b892a91c6cbb9fd4800ea307a1
 WORKDIR smurf-pcie
 RUN sed -i -e 's|git@github.com:|https://github.com/|g' .gitmodules
 RUN git submodule sync && git submodule update --init --recursive
