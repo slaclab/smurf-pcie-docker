@@ -2,7 +2,7 @@
 
 config_file=$1
 
-if [ ! -f config_file ]; then
+if [ ! -f ${config_file} ]; then
 	echo "File '${config_file}' not found!"
 	exit 1
 fi
