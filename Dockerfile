@@ -11,6 +11,12 @@ ENV PYTHONPATH /usr/local/src/smurf-pcie/software/python:${PYTHONPATH}
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/axi-pcie-core/python:${PYTHONPATH}
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/surf/python:${PYTHONPATH}
 
+# Apply PcieLoadConfig.patch to make the script
+# compatible with Rogue 4
+RUN mkdir -p patches
+ADD patches/* patches/
+RUN git apply patches/PcieLoadConfig.patch
+
 # Add utilities
 RUN mkdir -p /usr/local/src/smurf-pcie_utilities
 ADD scripts/* /usr/local/src/smurf-pcie_utilities/

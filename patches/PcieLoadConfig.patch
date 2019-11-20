@@ -1,0 +1,16 @@
+diff --git a/software/scripts/PcieLoadConfig.py b/software/scripts/PcieLoadConfig.py
+index 90c5cb0..32164f9 100644
+--- a/software/scripts/PcieLoadConfig.py
++++ b/software/scripts/PcieLoadConfig.py
+@@ -65,8 +65,8 @@ base.Core.AxiPcieCore.AxiVersion.printStatus()
+ 
+ # Load the YAML file
+ print( 'Loading %s YAML file' % args.yaml);
+-base.ReadConfig(args.yaml) 
++base.LoadConfig(args.yaml) 
+     
+ # Close
+ base.stop()
+-exit()   
+\ No newline at end of file
++exit()   
