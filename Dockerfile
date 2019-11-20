@@ -4,7 +4,7 @@ FROM tidair/smurf-rogue:R2.3.1
 WORKDIR /usr/local/src
 RUN git clone https://github.com/slaclab/smurf-pcie.git
 WORKDIR smurf-pcie
-RUN git checkout 7a60069009ef12b892a91c6cbb9fd4800ea307a1
+RUN git checkout c63d76346356ee17f7af3891c6a5c0b35c77818b
 RUN sed -i -e 's|git@github.com:|https://github.com/|g' .gitmodules
 RUN git submodule sync && git submodule update --init --recursive
 ENV PYTHONPATH /usr/local/src/smurf-pcie/software/python:${PYTHONPATH}
