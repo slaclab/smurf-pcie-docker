@@ -1,4 +1,4 @@
-FROM tidair/smurf-rogue:R2.3.1
+FROM tidair/smurf-rogue:R2.4.2
 
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
@@ -12,10 +12,11 @@ ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/axi-pcie-core/pytho
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/surf/python:${PYTHONPATH}
 
 # Apply PcieLoadConfig.patch to make the script
-# compatible with Rogue 4
+# compatible with Rogue 4, and use PyDM
 RUN mkdir -p patches
 ADD patches/* patches/
 RUN git apply patches/PcieLoadConfig.patch
+RUN git apply patches/PcieGui.patch
 
 # Add utilities
 RUN mkdir -p /usr/local/src/smurf-pcie_utilities
