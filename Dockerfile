@@ -17,6 +17,7 @@ RUN mkdir -p patches
 ADD patches/* patches/
 RUN git apply patches/PcieLoadConfig.patch
 RUN git apply patches/PcieGui.patch
+COPY new_python/PcieEpics.py software/scripts/
 
 # Add utilities
 RUN mkdir -p /usr/local/src/smurf-pcie_utilities
