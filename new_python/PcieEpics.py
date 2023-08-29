@@ -78,6 +78,7 @@ base.start()
 from pyrogue.protocols import epics
 epics = epics.EpicsCaServer(base=args.prefix, root=base)
 print(f"Starting EPICS server using prefix \"{args.prefix}\"")
+epics.dump()
 epics.start()
 
 # Print the AxiVersion Summary
