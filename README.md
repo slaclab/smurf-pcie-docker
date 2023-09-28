@@ -4,7 +4,7 @@
 
 This docker image, named **smurf-pcie** contains debugging tools for the SMuRF project.
 
-It is based on the **smurf-rogue** docker image and contains the **smurf-pcie** repository.
+It is based on the **smurf-roguev6** docker image and contains the **smurf-pcie** repository.
 
 ## Source code
 
