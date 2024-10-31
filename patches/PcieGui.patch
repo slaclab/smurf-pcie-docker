@@ -8,7 +8,7 @@ index 6436a11..0000000
 \ No newline at end of file
 diff --git a/software/scripts/PcieGui.py b/software/scripts/PcieGui.py
 new file mode 100644
-index 0000000..1dd6f5c
+index 0000000..5ce9512
 --- /dev/null
 +++ b/software/scripts/PcieGui.py
 @@ -0,0 +1,78 @@
@@ -28,7 +28,7 @@ index 0000000..1dd6f5c
 +import pyrogue as pr
 +import pyrogue.gui
 +import rogue.hardware.axi
-+import SmurfKcu1500RssiOffload as smurf
++import SmurfPcie.SmurfKcu1500RssiOffload10GbE as smurf
 +
 +#################################################################
 +
