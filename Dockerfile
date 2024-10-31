@@ -1,4 +1,9 @@
-FROM tidair/smurf-rogue:R2.4.2
+FROM tidair/smurf-rogue:R2.9.2
+
+# Install extra dependencies
+RUN apt-get update && apt-get install -y \
+    p4p \
+ && rm -rf /var/lib/apt/lists/*
 
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
@@ -14,7 +19,7 @@ ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/surf/python:${PYTHO
 ## Patch PcieGui script in v3.3.1 to use PyDM
 RUN mkdir -p patches
 ADD patches/* patches/
-RUN git apply patches/PcieGui.patch
+RUN git apply patches/BigPatch.patch
 COPY new_python/PcieEpics.py software/scripts/
 
 # Add utilities

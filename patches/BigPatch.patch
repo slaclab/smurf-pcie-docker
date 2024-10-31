@@ -1,0 +1,162 @@
+diff --git a/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_AxiPcieCore.py b/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_AxiPcieCore.py
+index 0ba4aa5..f48b260 100644
+--- a/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_AxiPcieCore.py
++++ b/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_AxiPcieCore.py
+@@ -12,7 +12,7 @@ import pyrogue              as pr
+ import surf.axi             as axi
+ import surf.devices.micron  as micron
+ import surf.devices.nxp     as nxp
+-import surf.devices.silabs  as silabs
++#import surf.devices.silabs  as silabs
+ import surf.xilinx          as xil
+ 
+ import surf.devices.transceivers as xceiver
+diff --git a/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_Core.py b/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_Core.py
+index 4b17a83..bd5862b 100644
+--- a/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_Core.py
++++ b/firmware/python/SmurfPcie/SmurfKcu1500RssiOffload10GbE/_Core.py
+@@ -19,7 +19,7 @@ import surf.ethernet.udp        as udp
+ import surf.protocols.rssi      as rssi
+ import surf.axi                 as axi
+ import surf.xilinx              as xil
+-import SmurfPcie.SmurfKcu1500RssiOffload10GbE  as smurf
++#import SmurfPcie.SmurfKcu1500RssiOffload10GbE  as smurf
+ 
+ ##############################################################################
+ 
+Submodule firmware/submodules/axi-pcie-core contains modified content
+diff --git a/firmware/submodules/axi-pcie-core/python/axipcie/_AxiPcieCore.py b/firmware/submodules/axi-pcie-core/python/axipcie/_AxiPcieCore.py
+index 54be1cb..ecf86db 100644
+--- a/firmware/submodules/axi-pcie-core/python/axipcie/_AxiPcieCore.py
++++ b/firmware/submodules/axi-pcie-core/python/axipcie/_AxiPcieCore.py
+@@ -12,7 +12,7 @@ import pyrogue              as pr
+ import surf.axi             as axi
+ import surf.devices.micron  as micron
+ import surf.devices.nxp     as nxp
+-import surf.devices.silabs  as silabs
++#import surf.devices.silabs  as silabs
+ import surf.xilinx          as xil
+ 
+ import surf.devices.transceivers as xceiver
+Submodule firmware/submodules/surf contains modified content
+diff --git a/firmware/submodules/surf/python/surf/xilinx/_Gtye4Channel.py b/firmware/submodules/surf/python/surf/xilinx/_Gtye4Channel.py
+index 28547b02a..d71c7ad07 100644
+--- a/firmware/submodules/surf/python/surf/xilinx/_Gtye4Channel.py
++++ b/firmware/submodules/surf/python/surf/xilinx/_Gtye4Channel.py
+@@ -17,7 +17,7 @@ class Gtye4Channel(pr.Device):
+ 
+     def _start(self):
+         super()._start()
+-        print(f'{self.path} - {len(self.variables)=}')
++        print(f'{self.path} - len(self.variables)={len(self.variables)}')
+ 
+     def __init__(self, **kwargs):
+         super().__init__(**kwargs)
+diff --git a/firmware/submodules/surf/python/surf/xilinx/__init__.py b/firmware/submodules/surf/python/surf/xilinx/__init__.py
+index 978aa9aae..082fbfadc 100644
+--- a/firmware/submodules/surf/python/surf/xilinx/__init__.py
++++ b/firmware/submodules/surf/python/surf/xilinx/__init__.py
+@@ -18,9 +18,9 @@ from surf.xilinx._Gthe3Channel        import *
+ from surf.xilinx._Gtxe2Channel        import *
+ from surf.xilinx._Gtpe2Channel        import *
+ from surf.xilinx._Gtpe2Common         import *
+-from surf.xilinx._RfTile              import *
++#from surf.xilinx._RfTile              import *
+ from surf.xilinx._RfBlock             import *
+-from surf.xilinx._RfDataConverter     import *
++#from surf.xilinx._RfDataConverter     import *
+ from surf.xilinx._SpiPs               import *
+ from surf.xilinx._TmrInject           import *
+ from surf.xilinx._TmrManager          import *
+diff --git a/software/scripts/PcieGui.py b/software/scripts/PcieGui.py
+deleted file mode 120000
+index 6436a112f..000000000
+--- a/software/scripts/PcieGui.py
++++ /dev/null
+@@ -1 +0,0 @@
+-PcieGui
+\ No newline at end of file
+diff --git a/software/scripts/PcieGui.py b/software/scripts/PcieGui.py
+new file mode 100644
+index 000000000..5ce9512f3
+--- /dev/null
++++ b/software/scripts/PcieGui.py
+@@ -0,0 +1,78 @@
++#!/usr/bin/env python3
++#-----------------------------------------------------------------------------
++# This file is part of the 'Development Board Examples'. It is subject to 
++# the license terms in the LICENSE.txt file found in the top-level directory 
++# of this distribution and at: 
++#    https://confluence.slac.stanford.edu/display/ppareg/LICENSE.html. 
++# No part of the 'Development Board Examples', including this file, may be 
++# copied, modified, propagated, or distributed except according to the terms 
++# contained in the LICENSE.txt file.
++#-----------------------------------------------------------------------------
++
++import sys
++import argparse
++import pyrogue as pr
++import pyrogue.gui
++import rogue.hardware.axi
++import SmurfPcie.SmurfKcu1500RssiOffload10GbE as smurf
++
++#################################################################
++
++# Convert str to bool
++argBool = lambda s: s.lower() in ['true', 't', 'yes', '1']
++
++# Set the argument parser
++parser = argparse.ArgumentParser()
++
++# Add arguments
++parser.add_argument(
++    "--dev", 
++    type     = str,
++    required = False,
++    default  = '/dev/datadev_0',
++    help     = "path to device",
++) 
++
++parser.add_argument(
++    "--pollEn", 
++    type     = argBool,
++    required = False,
++    default  = True,
++    help     = "auto-polling",
++)  
++
++parser.add_argument(
++    "--initRead", 
++    type     = argBool,
++    required = False,
++    default  = True,
++    help     = "Enable read all variables at start",
++)  
++
++# Get the arguments
++args = parser.parse_args()
++
++#################################################################
++
++# Set base
++base = pr.Root(name='pcie',description='', pollEn=args.pollEn,initRead=args.initRead,serverPort=9102)
++
++# Create the stream interface
++memMap = rogue.hardware.axi.AxiMemMap(args.dev)
++
++# Add Base Device
++base.add(smurf.Core(memBase=memMap,expand=True))
++
++# Start the system
++base.start()
++
++# Print the AxiVersion Summary
++base.Core.AxiPcieCore.AxiVersion.printStatus()
++
++# Create GUI
++import pyrogue.pydm
++pyrogue.pydm.runPyDM(root=base)
++    
++# Close
++base.stop()
++exit()   
