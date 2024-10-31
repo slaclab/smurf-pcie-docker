@@ -1,5 +1,7 @@
 FROM tidair/smurf-rogue:R2.9.2
 
+RUN pip3 install p4p
+
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
 RUN git clone https://github.com/slaclab/smurf-pcie.git
