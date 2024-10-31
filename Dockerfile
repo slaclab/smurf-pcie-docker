@@ -1,10 +1,5 @@
 FROM tidair/smurf-rogue:R2.9.2
 
-# Install extra dependencies
-RUN apt-get update && apt-get install -y \
-    p4p \
- && rm -rf /var/lib/apt/lists/*
-
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
 RUN git clone https://github.com/slaclab/smurf-pcie.git
