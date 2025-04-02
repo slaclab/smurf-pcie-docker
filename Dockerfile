@@ -1,10 +1,10 @@
-FROM tidair/smurf-roguev6:R3.0.2
+FROM tidair/smurf-roguev6:R3.1.0
 
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
 RUN git clone https://github.com/slaclab/smurf-pcie.git
 WORKDIR smurf-pcie
-RUN git checkout v4.0.0
+RUN git checkout v4.1.0
 RUN git submodule sync && git submodule update --init --recursive
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/python:${PYTHONPATH}
 ENV PYTHONPATH /usr/local/src/smurf-pcie/firmware/submodules/axi-pcie-core/python:${PYTHONPATH}
