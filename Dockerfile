@@ -1,4 +1,4 @@
-FROM tidair/smurf-roguev6:R3.1.0
+FROM ghcr.io/slaclab/smurf-roguev6:R3.1.4
 
 # Install the SMURF PCIe card repository
 WORKDIR /usr/local/src
